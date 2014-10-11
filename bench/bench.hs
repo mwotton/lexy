@@ -11,8 +11,8 @@ main = do
   testInput <- Text.readFile "./all.html"
   print (Text.length testInput)
   defaultMain [
-    bgroup "fib" [
-       bench "ctk"  $ whnf (fetchWords dict) testInput
-       , bench "trie"  $ whnf (fetchWordsTrie dict) testInput
-       ]
+    bgroup "lexers"
+      [ bench "ctk"  $ whnf (last . fetchWords dict) testInput
+      , bench "trie"  $ whnf (last . fetchWordsTrie dict) testInput
+      ]
     ]
