@@ -9,10 +9,9 @@ main :: IO ()
 main = do
   dict <- Text.lines <$> Text.readFile "/usr/share/dict/words"
   testInput <- Text.readFile "./all.html"
-  print (Text.length testInput)
   defaultMain [
     bgroup "lexers"
-      [ bench "ctk"  $ whnf (last . fetchWords dict) testInput
-      , bench "trie"  $ whnf (last . fetchWordsTrie dict) testInput
+      [ bench "ctk"  $ nf (fetchWords dict) testInput
+      , bench "trie"  $ nf (fetchWordsTrie dict) testInput
       ]
     ]
